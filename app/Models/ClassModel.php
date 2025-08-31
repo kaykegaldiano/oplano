@@ -31,6 +31,6 @@ class ClassModel extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class, 'enrollments')->withTimestamps();
+        return $this->belongsToMany(Student::class, 'enrollments', 'class_id', 'student_id')->withTimestamps();
     }
 }
