@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\ClassResource\Pages;
-use App\Filament\Resources\ClassResource\RelationManagers\EnrollmentsRelationManager;
+use App\Filament\Admin\Resources\ClassResource\Pages\CreateClass;
+use App\Filament\Admin\Resources\ClassResource\Pages\EditClass;
+use App\Filament\Admin\Resources\ClassResource\RelationManagers\EnrollmentsRelationManager;
+use App\Filament\Admin\Resources\ClassResource\Pages;
 use App\Models\ClassModel;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -117,8 +119,8 @@ class ClassResource extends Resource
     {
         return [
             'index' => Pages\ListClasses::route('/'),
-            'create' => Pages\CreateClass::route('/create'),
-            'edit' => Pages\EditClass::route('/{record}/edit'),
+            'create' => CreateClass::route('/create'),
+            'edit' => EditClass::route('/{record}/edit'),
         ];
     }
 

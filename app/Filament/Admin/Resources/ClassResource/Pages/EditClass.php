@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ClassResource\Pages;
+namespace App\Filament\Admin\Resources\ClassResource\Pages;
 
-use App\Filament\Resources\ClassResource;
+use App\Filament\Admin\Resources\ClassResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;

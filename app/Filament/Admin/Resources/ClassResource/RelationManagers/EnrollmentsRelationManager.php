@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ClassResource\RelationManagers;
+namespace App\Filament\Admin\Resources\ClassResource\RelationManagers;
 
 use App\Models\Student;
 use Filament\Actions\BulkActionGroup;

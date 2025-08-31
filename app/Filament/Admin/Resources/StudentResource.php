@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\StudentResource\Pages;
-use App\Filament\Resources\StudentResource\RelationManagers\EnrollmentsRelationManager;
+use App\Filament\Admin\Resources\StudentResource\RelationManagers\EnrollmentsRelationManager;
+use App\Filament\Admin\Resources\StudentResource\Pages;
 use App\Models\Student;
 use App\Services\IbgeService;
 use BackedEnum;
@@ -153,8 +153,8 @@ class StudentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStudents::route('/'),
-            'create' => Pages\CreateStudent::route('/create'),
+            'index' => StudentResource\Pages\ListStudents::route('/'),
+            'create' => StudentResource\Pages\CreateStudent::route('/create'),
             'edit' => Pages\EditStudent::route('/{record}/edit'),
         ];
     }
