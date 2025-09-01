@@ -33,4 +33,11 @@ class ClassModel extends Model
     {
         return $this->belongsToMany(Student::class, 'enrollments', 'class_id', 'student_id')->withTimestamps();
     }
+
+    public function monitors(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'class_user', 'class_id', 'user_id')
+            ->withPivot('role_in_class')
+            ->withTimestamps();
+    }
 }
