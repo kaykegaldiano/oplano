@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,5 +70,20 @@ class User extends Authenticatable
     public function isMonitor(): bool
     {
         return $this->role === 'monitor';
+    }
+
+    public function monitoredClasses(): BelongsToMany
+    {
+        return $this->belongsToMany(ClassModel::class, 'class_user', 'user_id', 'class_id')
+            ->withPivot('role_in_class')
+            ->wherePivot('role_in_class', 'monitor')
+            ->withTimestamps();
+    }
+
+    #[Scope]
+    protected function onlyMonitorEnrollments(Builder $query): Builder
+    {
+        $classIds = $this->monitoredClasses()->pluck('classes.id');
+        return Enrollment::query()->whereIn('class_id', $classIds);
     }
 }
