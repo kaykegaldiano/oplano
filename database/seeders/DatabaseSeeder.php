@@ -17,9 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create(['name' => 'Admin', 'email' => 'admin@test.com', 'role' => 'admin_global', 'password' => bcrypt('password')]);
-        User::factory()->create(['name' => 'CS', 'email' => 'cs@test.com', 'role' => 'customer_success', 'password' => bcrypt('password')]);
-        User::factory()->create(['name' => 'Monitor', 'email' => 'monitor@test.com', 'role' => 'monitor', 'password' => bcrypt('password')]);
+        User::factory()->create(['name' => 'Admin', 'email' => 'admin@test.com', 'password' => bcrypt('password')]);
+        User::factory()->create(['name' => 'CS', 'email' => 'cs@test.com', 'password' => bcrypt('password')]);
+        User::factory()->create(['name' => 'Monitor', 'email' => 'monitor@test.com', 'password' => bcrypt('password')]);
+
+        $this->call(PermissionSeeder::class);
 
         $students = Student::factory()->count(30)->create();
         $classes = ClassModel::factory()->count(6)->create();
@@ -33,7 +35,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $monitor = User::where('role', 'monitor')->first();
+        $monitor = User::role('monitor')->first();
 
         if ($monitor) {
             $classesToMonitor = ClassModel::inRandomOrder()->take(3)->get();
