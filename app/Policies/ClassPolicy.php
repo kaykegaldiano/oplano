@@ -12,29 +12,34 @@ class ClassPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isCS() || $user->isMonitor();
+        return $user->can('classes.view');
     }
 
     public function view(User $user, ClassModel $class): bool
     {
-        if ($user->isAdmin() || $user->isCS()) return true;
+        if ($user->hasRole(['admin_global', 'customer_success'])) {
+            return true;
+        }
 
-        return $user->isMonitor()
-            && $user->monitoredClasses()->where('classes.id', $class->id)->exists();
+        if ($user->hasRole('monitor')) {
+            return $user->monitoredClasses()->where('classes.id', $class->id)->exists();
+        }
+
+        return false;
     }
 
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isCS();
+        return $user->can('classes.create');
     }
 
     public function update(User $user, ClassModel $classModel): bool
     {
-        return $user->isAdmin() || $user->isCS();
+        return $user->can('classes.update');
     }
 
     public function delete(User $user, ClassModel $classModel): bool
     {
-        return $user->isAdmin();
+        return $user->can('classes.delete');
     }
 }

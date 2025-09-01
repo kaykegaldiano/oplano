@@ -12,26 +12,26 @@ class StudentPolicy
 
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->can('students.view');
     }
 
     public function view(User $user, Student $student): bool
     {
-        return true;
+        return $user->can('students.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isCS();
+        return $user->can('students.create');
     }
 
     public function update(User $user, Student $student): bool
     {
-        return $user->isAdmin() || $user->isCS();
+        return $user->can('students.update');
     }
 
     public function delete(User $user, Student $student): bool
     {
-        return $user->isAdmin();
+        return $user->can('students.delete');
     }
 }

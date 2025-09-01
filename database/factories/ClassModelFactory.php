@@ -19,7 +19,7 @@ class ClassModelFactory extends Factory
         return [
             'name' => 'Turma ' . fake()->word(),
             'code' => strtoupper(fake()->unique()->bothify('TUR-###')),
-            'status' => fake()->randomElement(['planned', 'ongoing', 'finished']),
+            'status' => random_int(1, 3),
             'start_date' => now()->subDays(random_int(0, 30)),
             'end_date' => now()->addDays(random_int(10, 60)),
             'capacity' => random_int(10, 40),
