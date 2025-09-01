@@ -4,3 +4,7 @@
 @source '../../../../resources/views/filament/**/*';
 @source '../../../../app/Livewire/**/*';
 @source '../../../../resources/views/livewire/**/*';
+
+.fi-account-widget {
+    grid-column: span 2;
+}
