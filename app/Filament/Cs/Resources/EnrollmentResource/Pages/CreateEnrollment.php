@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Monitor\Resources\EnrollmentResource\Pages;
+namespace App\Filament\Cs\Resources\EnrollmentResource\Pages;
 
-use App\Filament\Monitor\Resources\EnrollmentResource\EnrollmentResource;
+use App\Filament\Cs\Resources\EnrollmentResource\EnrollmentResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateEnrollment extends CreateRecord
