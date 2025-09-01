@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClassModality;
 use App\Enums\ClassStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class ClassModel extends Model
             'start_date' => 'date',
             'end_date' => 'date',
             'status' => ClassStatus::class,
+            'modality' => ClassModality::class,
         ];
     }
 

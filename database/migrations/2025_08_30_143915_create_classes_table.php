@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->unsignedInteger('capacity')->nullable();
-            $table->enum('modality', ['online', 'presential', 'hybrid'])->nullable();
+            $table->unsignedTinyInteger('modality')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\ClassResource\Schemas;
 
+use App\Enums\ClassModality;
 use App\Enums\ClassStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -41,11 +42,7 @@ class ClassForm
 
                 Select::make('modality')
                     ->label('Modalidade')
-                    ->options([
-                        'online' => 'Online',
-                        'presential' => 'Presencial',
-                        'hybrid' => 'Híbrida',
-                    ])
+                    ->options(ClassModality::options())
             ])->columns(2);
     }
 }

@@ -23,7 +23,7 @@ class ClassModelFactory extends Factory
             'start_date' => now()->subDays(random_int(0, 30)),
             'end_date' => now()->addDays(random_int(10, 60)),
             'capacity' => random_int(10, 40),
-            'modality' => fake()->randomElement(['online', 'presential', 'hybrid']),
+            'modality' => random_int(1, 3),
         ];
     }
 }
