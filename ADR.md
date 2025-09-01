@@ -9,19 +9,23 @@ Este documento registra decisões arquiteturais relevantes, seus contextos, alte
 ## ADR-001 — Autenticação & Segmentação de Perfis
 
 **Decisão**  
-Criar **três painéis independentes no Filament** (`/admin`, `/cs`, `/monitor`), cada um com cores/branding distintos e recursos ajustados. Policies reforçam a segurança no nível de dados.
+Usar **Spatie/laravel-permission** para gerenciamento de **roles** e **permissions**.  
+Criar **três painéis independentes no Filament** (`/admin`, `/cs`, Criar três painéis independentes (`/admin`, `/cs`, `/monitor`), cada um com middleware `role:*` e branding distinto.   
+Policies reforçam a segurança no nível de dados.
 
 **Alternativas**
-- Um único painel com `shouldRegisterNavigation()` e filtros.
-- Multi-guard no Laravel com painéis compartilhados.
+- Guardar papel em campo `users.role` (enum/string).
+- Um painel único com filtros condicionais.
 
 **Justificativa**
-- Requisito exige **escopos claramente separados** (menus, páginas, dados, ações).
-- Painéis independentes simplificam UX e deixam a separação visual explícita.
+- Spatie Permission é padrão de mercado no ecossistema Laravel.
+- Facilita granularidade (roles + permissions específicas).
+- Requisito exige escopos claramente separados (menus, páginas, dados, ações).
 
 **Consequências**
-- Mais código boilerplate (pasta por painel).
-- Clareza máxima para avaliadores e usuários.
+- Requer seed inicial de roles/permissions.
+- Middleware `role:*` simplifica controle de acesso a painéis.
+- Permite extensibilidade futura (novos papéis/ações sem mudar schema).
 
 ---
 
@@ -36,7 +40,7 @@ Usar `enrollments` como pivot enriquecido (status, datas, motivo). Matrículas a
 
 **Consequências**
 - Regras centralizadas no pivot.
-- UX consistente para Admin/CS.
+- Admin/CS têm controle total; Monitor apenas conclui (permission dedicada).
 
 ---
 
@@ -77,8 +81,8 @@ Consumir **API IBGE** para Estados/Cidades, com **cache** de 24h e **fallback lo
 ## ADR-005 — Elemento Global via Render Hooks
 
 **Decisão**  
-Botão/modal “Observação Rápida” injetado via **Render Hook** no topo do layout.  
-Disponível em todos os painéis.
+Botão/modal “Observação Rápida” via **Render Hook**, disponível em todos os painéis.  
+Registros ficam na tabela `observations` e podem ser visualizados no `ObservationResource`.
 
 **Justificativa**
 - Requisito de “elemento global reutilizável”.
@@ -86,15 +90,16 @@ Disponível em todos os painéis.
 
 **Consequências**
 - Acesso rápido a anotações, aumenta usabilidade.
+- Observações isoladas por usuário (segurança garantida por Policy).
 
 ---
 
 ## ADR-006 — Dashboards Operacionais
 
 **Decisão**  
-Cada painel possui widgets diferentes:
-- Admin → KPIs gerais e gráfico 30d.
-- CS → status das matrículas (pendentes, ativas, concluídas).
+Widgets distintos por painel:
+- Admin → visão macro.
+- CS → pendências/ativos/concluídos.
 - Monitor → “minhas turmas hoje” e pendências.
 
 **Justificativa**
@@ -102,7 +107,7 @@ Cada painel possui widgets diferentes:
 - Dá relevância prática para cada perfil.
 
 **Consequências**
-- Implementações diferentes de widgets.
-- UX sob medida para cada público.
+- Implementação específica por painel.
+- Flexível para evoluir (novos indicadores).
 
 ---
