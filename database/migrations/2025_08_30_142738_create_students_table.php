@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->date('birth_date')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

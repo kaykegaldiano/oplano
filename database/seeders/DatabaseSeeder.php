@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
                 Enrollment::query()->firstOrCreate([
                     'student_id' => $st->id,
                     'class_id' => $class->id
-                ], ['status' => 'active']);
+                ], ['status' => random_int(1, 4)]);
             }
         }
 

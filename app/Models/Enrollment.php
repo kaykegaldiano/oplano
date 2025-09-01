@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EnrollmentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,7 +29,8 @@ class Enrollment extends Model
         return [
             'enrolled_at' => 'datetime',
             'canceled_at' => 'datetime',
-            'completed_at' => 'datetime'
+            'completed_at' => 'datetime',
+            'status' => EnrollmentStatus::class
         ];
     }
 
@@ -40,5 +42,27 @@ class Enrollment extends Model
     public function class(): BelongsTo
     {
         return $this->belongsTo(ClassModel::class, 'class_id');
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Enrollment $enrollment) {
+            $enrollment->created_by = auth()->id();
+            $enrollment->updated_by = auth()->id();
+        });
+
+        static::saving(function (Enrollment $enrollment) {
+            $enrollment->updated_by = auth()->id();
+        });
     }
 }

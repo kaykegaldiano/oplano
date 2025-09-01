@@ -14,13 +14,13 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
-            $table->enum('status', ['planned', 'ongoing', 'finished', 'canceled'])->default('planned')->index();
+            $table->unsignedTinyInteger('status')->default(1)->index();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->unsignedInteger('capacity')->nullable();
             $table->enum('modality', ['online', 'presential', 'hybrid'])->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
             $table->index(['start_date', 'end_date']);

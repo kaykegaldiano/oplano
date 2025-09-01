@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -36,5 +37,27 @@ class Student extends Model
     public function classes(): BelongsToMany
     {
         return $this->belongsToMany(ClassModel::class, 'enrollments', 'student_id', 'class_id')->withTimestamps();
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');;
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');;
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Student $student) {
+            $student->created_by = auth()->id();
+            $student->updated_by = auth()->id();
+        });
+
+        static::saving(function (Student $student) {
+            $student->updated_by = auth()->id();
+        });
     }
 }
