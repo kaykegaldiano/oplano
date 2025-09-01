@@ -2,6 +2,7 @@
 
 namespace App\Filament\Monitor\Resources\ClassResource\RelationManagers;
 
+use App\Enums\EnrollmentStatus;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -22,10 +23,10 @@ class EnrollmentsRelationManager extends RelationManager
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
-                        'success' => 'active',
-                        'warning' => 'pending',
-                        'info' => 'completed',
-                        'danger' => 'canceled',
+                        'success' => EnrollmentStatus::Active,
+                        'warning' => EnrollmentStatus::Pending,
+                        'info' => EnrollmentStatus::Completed,
+                        'danger' => EnrollmentStatus::Canceled,
                     ]),
 
                 TextColumn::make('enrolled_at')->date('d/m/Y')->label('Matriculado em'),

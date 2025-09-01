@@ -2,6 +2,7 @@
 
 namespace App\Filament\Monitor\Resources\EnrollmentResource\Tables;
 
+use App\Enums\EnrollmentStatus;
 use App\Models\Enrollment;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -29,10 +30,10 @@ class EnrollmentsTable
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
-                        'success' => 'active',
-                        'warning' => 'pending',
-                        'info' => 'completed',
-                        'danger' => 'canceled'
+                        'success' => EnrollmentStatus::Active,
+                        'warning' => EnrollmentStatus::Pending,
+                        'info' => EnrollmentStatus::Completed,
+                        'danger' => EnrollmentStatus::Canceled
                     ]),
 
                 TextColumn::make('enrolled_at')->date('d/m/Y')->label('Matrícula em'),
