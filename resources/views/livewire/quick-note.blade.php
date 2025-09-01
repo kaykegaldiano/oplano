@@ -2,6 +2,6 @@
     {{ $this->form }}
 
     <x-filament::button wire:click="save">
-        {{ __('Save') }}
+        Salvar
     </x-filament::button>
 </div>
