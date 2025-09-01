@@ -59,10 +59,10 @@ class EnrollmentsRelationManager extends RelationManager
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
-                        'success' => 'active',
-                        'warning' => 'pending',
-                        'danger' => 'canceled',
-                        'info' => 'completed',
+                        'success' => EnrollmentStatus::Active,
+                        'warning' => EnrollmentStatus::Pending,
+                        'danger' => EnrollmentStatus::Canceled,
+                        'info' => EnrollmentStatus::Completed,
                     ]),
 
                 TextColumn::make('enrolled_at')
