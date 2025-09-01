@@ -32,5 +32,17 @@ class DatabaseSeeder extends Seeder
                 ], ['status' => 'active']);
             }
         }
+
+        $monitor = User::where('role', 'monitor')->first();
+
+        if ($monitor) {
+            $classesToMonitor = ClassModel::inRandomOrder()->take(3)->get();
+
+            foreach ($classesToMonitor as $class) {
+                $class->monitors()->syncWithoutDetaching([
+                    $monitor->id => ['role_in_class' => 'monitor']
+                ]);
+            }
+        }
     }
 }
