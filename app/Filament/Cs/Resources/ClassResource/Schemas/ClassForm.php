@@ -9,6 +9,6 @@ class ClassForm
 {
     public static function configure(Schema $schema): Schema
     {
-        return ClassResource::form($schema);
+        return ClassResource\ClassResource::form($schema);
     }
 }

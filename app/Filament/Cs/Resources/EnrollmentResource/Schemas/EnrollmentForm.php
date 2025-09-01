@@ -2,6 +2,7 @@
 
 namespace App\Filament\Cs\Resources\EnrollmentResource\Schemas;
 
+use App\Enums\EnrollmentStatus;
 use App\Models\ClassModel;
 use App\Models\Student;
 use Filament\Forms\Components\Select;
@@ -27,15 +28,12 @@ class EnrollmentForm
                     ->required(),
 
                 Select::make('status')
-                    ->options([
-                        'active' => 'Ativa',
-                        'pending' => 'Pendente',
-                        'completed' => 'Concluída',
-                        'canceled' => 'Cancelada',
-                    ])->default('active')->required(),
+                    ->options(EnrollmentStatus::options())
+                    ->default(EnrollmentStatus::Active)
+                    ->required(),
 
                 Textarea::make('cancel_reason')
-                    ->visible(fn($get) => $get('status') === 'canceled'),
+                    ->visible(fn($get) => $get('status') === EnrollmentStatus::Canceled),
             ])->columns(2);
     }
 }
