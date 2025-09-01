@@ -38,10 +38,13 @@ class MonitorPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Monitor/Resources'), for: 'App\Filament\Monitor\Resources')
             ->discoverPages(in: app_path('Filament/Monitor/Pages'), for: 'App\Filament\Monitor\Pages')
+            ->discoverResources(in: app_path('Filament/Shared/Resources'), for: 'App\Filament\Shared\Resources')
+            ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\Filament\Shared\Pages')
             ->pages([
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Monitor/Widgets'), for: 'App\Filament\Monitor\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Shared/Widgets'), for: 'App\Filament\Shared\Widgets')
             ->widgets([
                 AccountWidget::class,
             ])

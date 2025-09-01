@@ -38,10 +38,13 @@ class CsPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Cs/Resources'), for: 'App\Filament\Cs\Resources')
             ->discoverPages(in: app_path('Filament/Cs/Pages'), for: 'App\Filament\Cs\Pages')
+            ->discoverResources(in: app_path('Filament/Shared/Resources'), for: 'App\Filament\Shared\Resources')
+            ->discoverPages(in: app_path('Filament/Shared/Pages'), for: 'App\Filament\Shared\Pages')
             ->pages([
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Cs/Widgets'), for: 'App\Filament\Cs\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Shared/Widgets'), for: 'App\Filament\Shared\Widgets')
             ->widgets([
                 AccountWidget::class,
             ])
