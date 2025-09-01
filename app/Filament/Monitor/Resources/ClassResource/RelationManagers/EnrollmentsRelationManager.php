@@ -11,6 +11,7 @@ class EnrollmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'enrollments';
     protected static ?string $title = 'Matrículas';
+    protected static ?string $modelLabel = 'Matrícula';
 
     public function table(Table $table): Table
     {
