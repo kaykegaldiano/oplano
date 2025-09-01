@@ -18,13 +18,15 @@ use Filament\Tables\Table;
 class EnrollmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'enrollments';
+    protected static ?string $title = 'Matrículas';
+    protected static ?string $modelLabel = 'Matrícula';
 
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Select::make('student_id')
-                    ->label('Student')
+                    ->label('Aluno')
                     ->options(Student::query()->orderBy('name')->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
@@ -38,7 +40,9 @@ class EnrollmentsRelationManager extends RelationManager
                     ])
                     ->default('active')->required(),
 
-                Textarea::make('cancel_reason')->visible(fn($get) => $get('status') === 'canceled'),
+                Textarea::make('cancel_reason')
+                    ->label('Motivo da cancelamento')
+                    ->visible(fn($get) => $get('status') === 'canceled'),
             ]);
     }
 
@@ -47,6 +51,7 @@ class EnrollmentsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('student.name')
+                    ->label('Aluno')
                     ->searchable(),
 
                 TextColumn::make('status')
@@ -59,7 +64,7 @@ class EnrollmentsRelationManager extends RelationManager
                     ]),
 
                 TextColumn::make('enrolled_at')
-                    ->label('Enrolled Date')
+                    ->label('Matrícula em')
                     ->date('d/m/Y'),
             ])
             ->filters([

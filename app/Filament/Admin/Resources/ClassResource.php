@@ -36,38 +36,50 @@ class ClassResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
 
-    protected static ?string $navigationLabel = 'Classes';
+    protected static ?string $navigationLabel = 'Turmas';
 
-    protected static string|null|\UnitEnum $navigationGroup = 'Academic';
+    protected static string|null|\UnitEnum $navigationGroup = 'Acadêmico';
 
-    protected static ?string $modelLabel = 'Class';
+    protected static ?string $modelLabel = 'Aula';
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextInput::make('name')->required(),
+                TextInput::make('name')
+                    ->label('Nome')
+                    ->required(),
 
-                TextInput::make('code')->required()->unique(ignoreRecord: true),
+                TextInput::make('code')
+                    ->label('Código')
+                    ->required()
+                    ->unique(ignoreRecord: true),
 
                 Select::make('status')->options([
-                    'planned' => 'Planned',
-                    'ongoing' => 'Ongoing',
-                    'finished' => 'Finished',
-                    'canceled' => 'Canceled',
+                    'planned' => 'Planejada',
+                    'ongoing' => 'Em andamento',
+                    'finished' => 'Finalizada',
+                    'canceled' => 'Cancelada',
                 ])->default('planned')->required(),
 
-                DatePicker::make('start_date'),
+                DatePicker::make('start_date')->label('Data inicial'),
 
-                DatePicker::make('end_date')->after('start_date'),
+                DatePicker::make('end_date')
+                    ->label('Data final')
+                    ->after('start_date'),
 
-                TextInput::make('capacity')->numeric()->minValue(1),
+                TextInput::make('capacity')
+                    ->label('Capacidade')
+                    ->numeric()
+                    ->minValue(1),
 
-                Select::make('modality')->options([
-                    'online' => 'Online',
-                    'presential' => 'Presential',
-                    'hybrid' => 'Hybrid',
-                ])
+                Select::make('modality')
+                    ->label('Modalidade')
+                    ->options([
+                        'online' => 'Online',
+                        'presential' => 'Presencial',
+                        'hybrid' => 'Híbrida',
+                    ])
             ])->columns(2);
     }
 
@@ -75,8 +87,16 @@ class ClassResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('code')->sortable()->searchable(),
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('code')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Código'),
+
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Nome'),
+
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
@@ -86,9 +106,13 @@ class ClassResource extends Resource
                         'danger' => 'canceled',
                     ]),
 
-                TextColumn::make('start_date')->date('d/m/Y'),
+                TextColumn::make('start_date')
+                    ->date('d/m/Y')
+                    ->label('Data inicial'),
 
-                TextColumn::make('end_date')->date('d/m/Y'),
+                TextColumn::make('end_date')
+                    ->date('d/m/Y')
+                    ->label('Data final'),
             ])
             ->filters([
                 TrashedFilter::make(),
@@ -126,13 +150,7 @@ class ClassResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $user = auth()->user();
-
         return parent::getEloquentQuery()
-            ->when($user && $user->isMonitor(), function (Builder $query) use ($user) {
-                $classIds = $user->monitoredClasses()->pluck('classes.id');
-                $query->whereIn('id', $classIds);
-            })
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
