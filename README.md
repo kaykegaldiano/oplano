@@ -3,7 +3,7 @@
 Sistema acadêmico com **três painéis separados** para perfis distintos:
 - **Admin Global**: acesso total, CRUD completo.
 - **Customer Success (CS)**: gestão de alunos, turmas e matrículas, sem exclusões críticas.
-- **Monitor**: acesso somente às suas turmas atribuídas (via pivot `class_user`), podendo visualizar aulas e concluir matrículas.
+- **Monitor**: acesso somente às suas turmas atribuídas (via pivot `class_user`), podendo visualizar aulas e concluir matrículas dessas turmas.
 
 ## 🚀 Tecnologias
 - PHP 8.3+, Laravel 12
@@ -20,6 +20,7 @@ cd <repo_dir>
 cp .env.example .env
 composer install
 php artisan key:generate
+npm install
 ```
 
 ## Configure o `.env` com DB/Redis. Exemplo mínimo:
@@ -37,6 +38,11 @@ DB_PASSWORD=secret
 php artisan migrate --seed
 ```
 
+## Iniciar servidor:
+```bash
+composer run dev
+```
+
 # Acessar os painéis:
 - Admin: http://localhost:8000/admin
 - CS: http://localhost:8000/cs
@@ -46,6 +52,8 @@ php artisan migrate --seed
 - Admin → `admin@test.com` / `password`
 - CS → `cs@test.com` / `password`
 - Monitor → `monitor@test.com` / `password`
+
+Cada usuário recebe o papel correspondente via Spatie Permission.
 
 ## 📚 Domínio Essencial
 - Alunos (students), Turmas (classes), Matrículas (enrollments)
@@ -61,11 +69,13 @@ php artisan migrate --seed
   - CS → foco em pendências, ativas e concluídas.
   - Monitor → visão das próprias turmas do dia e pendências de matrícula.
 - Customização visual: cores distintas por painel (branding leve).
+- Gerenciamento de roles e permissions: via Spatie, com granularidade para ações específicas (ex.: concluir matrícula).
 
 ## 🛠️ Qualidade
 - Migrations, seeders e factories organizados.
 - `.env.example` incluso.
-- Policies e filtros garantindo escopo por perfil.
+- Spatie Permission para autorização e segmentação de escopos.
+- Policies integradas a roles/permissions.
 - Índices em colunas críticas, validações server-side.
 - Soft Deletes e auditoria básica (`created_by`, `updated_by`).
 
