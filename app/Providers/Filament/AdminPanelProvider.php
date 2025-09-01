@@ -13,7 +13,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -29,6 +28,14 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Painel - Admin')
+            ->colors([
+                'primary' => '#0EA5E9',
+                'info' => '#38BDF8',
+                'success' => '#22C55E',
+                'warning' => '#F59E0B',
+                'danger' => '#EF4444',
+            ])
             ->login()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
@@ -58,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                'role:admin_global'
             ]);
     }
 }
