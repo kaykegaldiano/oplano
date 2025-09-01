@@ -32,13 +32,6 @@ class EnrollmentResource extends Resource
         return EnrollmentsTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery()->with(['student', 'class']);

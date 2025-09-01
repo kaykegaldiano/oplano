@@ -40,6 +40,6 @@ class EnrollmentPolicy
 
     public function delete(User $user, Enrollment $enrollment): bool
     {
-        return $user->isAdmin() || $user->isCS();
+        return $user->isAdmin();
     }
 }
