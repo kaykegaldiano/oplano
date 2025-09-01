@@ -161,7 +161,13 @@ class StudentResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+        $user = auth()->user();
+
         return parent::getEloquentQuery()
+            ->when($user && $user->isMonitor(), function (Builder $query) use ($user) {
+                $classIds = $user->monitoredClasses()->pluck('classes.id');
+                $query->whereHas('enrollments', fn(Builder $q) => $q->whereIn('class_id', $classIds));
+            })
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
