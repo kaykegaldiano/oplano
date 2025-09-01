@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\ClassResource\RelationManagers;
 
+use App\Enums\EnrollmentStatus;
 use App\Models\Student;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -38,17 +39,13 @@ class EnrollmentsRelationManager extends RelationManager
                     ->required(),
 
                 Select::make('status')
-                    ->options([
-                        'active' => 'Ativa',
-                        'pending' => 'Pendente',
-                        'completed' => 'Concluída',
-                        'canceled' => 'Cancelada'
-                    ])
-                    ->default('active')->required(),
+                    ->options(EnrollmentStatus::options())
+                    ->default(EnrollmentStatus::Active)
+                    ->required(),
 
                 Textarea::make('cancel_reason')
                     ->label('Motivo da cancelamento')
-                    ->visible(fn($get) => $get('status') === 'canceled'),
+                    ->visible(fn($get) => $get('status') === EnrollmentStatus::Canceled),
             ]);
     }
 

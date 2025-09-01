@@ -29,12 +29,12 @@ class EnrollmentForm
 
                 Select::make('status')
                     ->options(EnrollmentStatus::options())
-                    ->default('active')
+                    ->default(EnrollmentStatus::Active)
                     ->required(),
 
                 Textarea::make('cancel_reason')
                     ->label('Motivo da cancelamento')
-                    ->visible(fn($get) => $get('status') === 'canceled'),
+                    ->visible(fn($get) => $get('status') === EnrollmentStatus::Canceled),
             ])->columns(2);
     }
 }

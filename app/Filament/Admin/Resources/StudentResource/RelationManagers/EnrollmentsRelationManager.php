@@ -2,18 +2,15 @@
 
 namespace App\Filament\Admin\Resources\StudentResource\RelationManagers;
 
+use App\Enums\EnrollmentStatus;
 use App\Models\ClassModel;
-use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\DissociateAction;
-use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -35,13 +32,13 @@ class EnrollmentsRelationManager extends RelationManager
                     ->required(),
 
                 Select::make('status')
-                    ->options(['active' => 'Ativo', 'pending' => 'Pendente', 'completed' => 'Concluído', 'canceled' => 'Cancelado'])
-                    ->default('active')
+                    ->options(EnrollmentStatus::options())
+                    ->default(EnrollmentStatus::Active)
                     ->required(),
 
                 Textarea::make('cancel_reason')
                     ->label('Motivo do cancelamento')
-                    ->visible(fn($get) => $get('status') === 'canceled')
+                    ->visible(fn($get) => $get('status') === EnrollmentStatus::Canceled)
             ]);
     }
 

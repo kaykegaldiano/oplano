@@ -25,7 +25,7 @@ class ClassForm
 
                 Select::make('status')
                     ->options(ClassStatus::options())
-                    ->default('planned')
+                    ->default(ClassStatus::Planned)
                     ->required(),
 
                 DatePicker::make('start_date')->label('Data inicial'),
