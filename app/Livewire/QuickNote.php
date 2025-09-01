@@ -24,7 +24,7 @@ class QuickNote extends Component implements HasSchemas
         return $schema
             ->components([
                 Textarea::make('body')
-                    ->label('Corpo')
+                    ->label('Observação')
                     ->rows(5)
                     ->placeholder('Digite aqui...')
                     ->required(),
@@ -46,6 +46,8 @@ class QuickNote extends Component implements HasSchemas
         $this->dispatch('close-modal', id: 'quick-note-modal');
 
         Notification::make()->title('Observação registrada!')->success()->send();
+
+        $this->dispatch('refresh-page');
 
         $this->reset(['body', 'pinned']);
     }
