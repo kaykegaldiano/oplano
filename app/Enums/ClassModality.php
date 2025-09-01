@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum ClassModality: int
+use Filament\Support\Contracts\HasLabel;
+
+enum ClassModality: int implements HasLabel
 {
     case Online = 1;
     case Presential = 2;
     case Hybrid = 3;
 
-    public function label(): string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Online => 'Online',
@@ -23,7 +25,7 @@ enum ClassModality: int
     {
         $opts = [];
         foreach (self::cases() as $case) {
-            $opts[$case->value] = $case->label();
+            $opts[$case->value] = $case->getLabel();
         }
         return $opts;
     }
