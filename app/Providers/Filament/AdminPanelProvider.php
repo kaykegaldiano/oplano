@@ -2,8 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Admin\Widgets\EnrollmentsLast30DaysChart;
-use App\Filament\Admin\Widgets\OperationalKpis;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -49,8 +47,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
             ->widgets([
                 AccountWidget::class,
-                EnrollmentsLast30DaysChart::class,
-                OperationalKpis::class,
             ])
             ->middleware([
                 EncryptCookies::class,
