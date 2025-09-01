@@ -35,6 +35,7 @@ class CsPanelProvider extends PanelProvider
                 'danger' => '#EF4444',
             ])
             ->login()
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Cs/Resources'), for: 'App\Filament\Cs\Resources')
             ->discoverPages(in: app_path('Filament/Cs/Pages'), for: 'App\Filament\Cs\Pages')
             ->pages([
@@ -43,7 +44,6 @@ class CsPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Cs/Widgets'), for: 'App\Filament\Cs\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -35,6 +35,7 @@ class MonitorPanelProvider extends PanelProvider
                 'danger' => '#EF4444',
             ])
             ->login()
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Monitor/Resources'), for: 'App\Filament\Monitor\Resources')
             ->discoverPages(in: app_path('Filament/Monitor/Pages'), for: 'App\Filament\Monitor\Pages')
             ->pages([
@@ -43,7 +44,6 @@ class MonitorPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Monitor/Widgets'), for: 'App\Filament\Monitor\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
