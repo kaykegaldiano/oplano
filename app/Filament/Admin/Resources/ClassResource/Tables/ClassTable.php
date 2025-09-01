@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\ClassResource\Tables;
 
+use App\Enums\ClassStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -33,10 +34,10 @@ class ClassTable
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
-                        'warning' => 'planned',
-                        'success' => 'ongoing',
-                        'gray' => 'finished',
-                        'danger' => 'canceled',
+                        'warning' => ClassStatus::Planned,
+                        'success' => ClassStatus::Ongoing,
+                        'gray' => ClassStatus::Finished,
+                        'danger' => ClassStatus::Canceled,
                     ]),
 
                 TextColumn::make('start_date')

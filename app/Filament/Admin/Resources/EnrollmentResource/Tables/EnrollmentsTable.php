@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\EnrollmentResource\Tables;
 
+use App\Enums\EnrollmentStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -34,10 +35,10 @@ class EnrollmentsTable
                 TextColumn::make('status')
                     ->badge()
                     ->colors([
-                        'success' => 'active',
-                        'warning' => 'pending',
-                        'info' => 'completed',
-                        'danger' => 'canceled',
+                        'success' => EnrollmentStatus::Active,
+                        'warning' => EnrollmentStatus::Pending,
+                        'info' => EnrollmentStatus::Completed,
+                        'danger' => EnrollmentStatus::Canceled,
                     ]),
 
                 TextColumn::make('enrolled_at')

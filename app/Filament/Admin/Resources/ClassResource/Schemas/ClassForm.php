@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\ClassResource\Schemas;
 
+use App\Enums\ClassStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -22,12 +23,10 @@ class ClassForm
                     ->required()
                     ->unique(ignoreRecord: true),
 
-                Select::make('status')->options([
-                    'planned' => 'Planejada',
-                    'ongoing' => 'Em andamento',
-                    'finished' => 'Finalizada',
-                    'canceled' => 'Cancelada',
-                ])->default('planned')->required(),
+                Select::make('status')
+                    ->options(ClassStatus::options())
+                    ->default('planned')
+                    ->required(),
 
                 DatePicker::make('start_date')->label('Data inicial'),
 

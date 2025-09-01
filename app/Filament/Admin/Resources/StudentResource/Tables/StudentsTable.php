@@ -40,9 +40,9 @@ class StudentsTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('created_by')->label('Criado por'),
+                TextColumn::make('createdBy.name')->label('Criado por'),
 
-                TextColumn::make('updated_by')->label('Atualizado por'),
+                TextColumn::make('updatedBy.name')->label('Atualizado por'),
             ])
             ->filters([
                 TrashedFilter::make(),
