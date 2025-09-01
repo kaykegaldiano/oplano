@@ -43,7 +43,7 @@ class EnrollmentsTable
             ->recordActions([
                 Action::make('complete')
                     ->label('Marcar como Concluída')
-                    ->visible(fn() => $user?->isMonitor())
+                    ->visible(fn() => $user?->can('enrollments.complete'))
                     ->requiresConfirmation()
                     ->action(function (Enrollment $record) {
                         $record->update([

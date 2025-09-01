@@ -38,6 +38,7 @@ class PermissionSeeder extends Seeder
 
         $monitor->givePermissionTo([
             'classes.view',
+            'students.view',
             'enrollments.view', 'enrollments.complete',
             'observations.view', 'observations.create', 'observations.update', 'observations.delete',
         ]);
@@ -46,8 +47,8 @@ class PermissionSeeder extends Seeder
         $uCs = User::where('email', 'cs@test.com')->first();
         $uMonitor = User::where('email', 'monitor@test.com')->first();
 
-        $uAdmin?->syncRoles([$admin]);
-        $uCs?->syncRoles([$cs]);
-        $uMonitor?->syncRoles([$monitor]);
+        $uAdmin?->assignRole($admin);
+        $uCs?->assignRole($cs);
+        $uMonitor?->assignRole($monitor);
     }
 }
